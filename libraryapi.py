@@ -9,13 +9,9 @@ from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 
 # ------------------- Path Setup -------------------
-CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-
-BASE_DIR = os.path.join(CURRENT_DIR, "library_data")
+BASE_DIR = os.path.join(os.getcwd(), "library_data")  # fixed folder structure
 os.makedirs(BASE_DIR, exist_ok=True)
-
-sys.path.append(CURRENT_DIR)
-FRONTEND_DIR = os.path.join(CURRENT_DIR, "frontend", "static")
+sys.path.append(os.getcwd())  # backend folder already contains the py files
 
 from libraryv1 import ConsoleApp, Admin, Student, ConsoleAdminInterface, ConsoleStudentInterface
 
@@ -98,12 +94,7 @@ def require_session():
 # ------------------- Static Files -------------------
 @app.route('/')
 def serve_home():
-    return send_from_directory(FRONTEND_DIR, 'index.html')
-
-
-@app.route('/<path:path>')
-def serve_static(path):
-    return send_from_directory(FRONTEND_DIR, path)
+    return send_from_directory(os.path.join("frontend", "static"), 'index.html')
 
 # ------------------- Helper -------------------
 def json_error(message, status=400, error=None):
@@ -453,5 +444,4 @@ def student_reading_history():
 
 # ------------------- RUN APP -------------------
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(debug=True)
