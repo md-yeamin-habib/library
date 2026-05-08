@@ -83,7 +83,7 @@ async function initSystemDateOnce() {
   if (systemDateInitialized) return;
 
   try {
-    await fetch("http://127.0.0.1:5000/system/reset-date", {
+    await fetch("/system/reset-date", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -198,7 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
         adminLoginBtn.disabled = true;
         adminLoginBtn.textContent = "Logging in...";
 
-        const res = await fetch("http://127.0.0.1:5000/admin/login", {
+        const res = await fetch("/admin/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ password })
@@ -289,7 +289,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!authToken) return;
 
       try {
-        await fetch("http://127.0.0.1:5000/admin/logout", {
+        await fetch("/admin/logout", {
           method: "POST",
           headers: { "Authorization": authToken }
         });
@@ -357,7 +357,7 @@ document.addEventListener("DOMContentLoaded", () => {
       confirmBtn.disabled = true;
       confirmBtn.textContent = "Processing...";
 
-      const res = await fetch("http://127.0.0.1:5000/admin/change-password", {
+      const res = await fetch("/admin/change-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -473,7 +473,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!authToken) return;
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/admin/books", {
+      const res = await fetch("/admin/books", {
         headers: { Authorization: authToken }
       });
 
@@ -639,7 +639,7 @@ document.addEventListener("DOMContentLoaded", () => {
       popupConfirm.disabled = true;
       popupConfirm.textContent = "Adding...";
 
-      const res = await fetch("http://127.0.0.1:5000/admin/books/add", {
+      const res = await fetch("/admin/books/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -732,7 +732,7 @@ document.addEventListener("DOMContentLoaded", () => {
       modifyConfirmBtn.disabled = true;
       modifyConfirmBtn.textContent = "Processing...";
 
-      const res = await fetch("http://127.0.0.1:5000/admin/books/modify", {
+      const res = await fetch("/admin/books/modify", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -796,7 +796,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       deleteConfirmBtn.disabled = true;
 
-      const res = await fetch("http://127.0.0.1:5000/admin/books/delete", {
+      const res = await fetch("/admin/books/delete", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -900,7 +900,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!authToken) return;
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/admin/students", {
+      const res = await fetch("/admin/students", {
         headers: { Authorization: authToken }
       });
 
@@ -1192,7 +1192,7 @@ popup.document.body.innerHTML = `
   const emptyLabel = popup.document.getElementById("student-history-empty");
 
   try {
-    const res = await fetch("http://127.0.0.1:5000/admin/reading-history", {
+    const res = await fetch("/admin/reading-history", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -1255,7 +1255,7 @@ popup.document.body.innerHTML = `
     deleteMsg.style.color = "orange";
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/admin/students/delete", {
+      const res = await fetch("/admin/students/delete", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: authToken },
         body: JSON.stringify({ user_id: ctxStudent.user_id, confirm: true })
@@ -1306,7 +1306,7 @@ document.addEventListener("DOMContentLoaded", () => {
     emptyMsg.hidden = true;
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/admin/pending-approvals", {
+      const res = await fetch("/admin/pending-approvals", {
         headers: { Authorization: authToken }
       });
 
@@ -1370,7 +1370,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let lastBackendMessage = "";
 
     for (const user_id of selected) {
-      const res = await fetch("http://127.0.0.1:5000/admin/pending-approvals/process", {
+      const res = await fetch("/admin/pending-approvals/process", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1444,7 +1444,7 @@ document.addEventListener("DOMContentLoaded", () => {
     emptyMsg.hidden = true;
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/admin/logs", {
+      const res = await fetch("/admin/logs", {
         headers: { Authorization: authToken }
       });
 
@@ -1679,7 +1679,7 @@ document.addEventListener("DOMContentLoaded", () => {
     msgBox.style.color = "orange";
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/admin/clear-data", {
+      const res = await fetch("/admin/clear-data", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -1772,7 +1772,7 @@ document.addEventListener("DOMContentLoaded", () => {
   async function fetchCurrentDate() {
     try {
       msgBox.textContent = "Loading...";
-      const res = await fetch("http://127.0.0.1:5000/system/date", {
+      const res = await fetch("/system/date", {
           headers: {
             "Content-Type": "application/json"
           }});
@@ -1811,7 +1811,7 @@ document.addEventListener("DOMContentLoaded", () => {
   resetBtn.addEventListener("click", async () => {
     try {
       msgBox.textContent = "Resetting...";
-      const res = await fetch("http://127.0.0.1:5000/system/reset-date", {
+      const res = await fetch("/system/reset-date", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -1847,7 +1847,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       msgBox.textContent = "Updating...";
       msgBox.style.color = "orange";
-      const res = await fetch("http://127.0.0.1:5000/system/set-date", {
+      const res = await fetch("/system/set-date", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -1895,7 +1895,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const name = nameInput.value.trim();
 
       try {
-        const res = await fetch("http://127.0.0.1:5000/student/signup", {
+        const res = await fetch("/student/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -1960,7 +1960,7 @@ document.addEventListener("DOMContentLoaded", () => {
     msg.style.color = "orange";
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/student/login", {
+      const res = await fetch("/student/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id: userId })
@@ -2025,7 +2025,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (logoutBtn) {
     logoutBtn.addEventListener("click", async () => {
       try {
-        await fetch("http://127.0.0.1:5000/student/logout", {
+        await fetch("/student/logout", {
           method: "POST",
           headers: { Authorization: authToken }
         });
@@ -2075,7 +2075,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!authToken) return;
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/student/available-books", {
+      const res = await fetch("/student/available-books", {
         headers: { Authorization: authToken }
       });
 
@@ -2217,7 +2217,7 @@ document.addEventListener("DOMContentLoaded", () => {
     borrowBtn.textContent = "Borrowing...";
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/student/borrow-book", {
+      const res = await fetch("/student/borrow-book", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -2275,7 +2275,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!authToken) return;
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/student/borrowed-books", {
+      const res = await fetch("/student/borrowed-books", {
         headers: { Authorization: authToken }
       });
 
@@ -2361,7 +2361,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/student/return-book", {
+      const res = await fetch("/student/return-book", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -2531,7 +2531,7 @@ document.addEventListener("DOMContentLoaded", () => {
     progress.style.strokeDashoffset = "0";
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/student/return-book", {
+      const res = await fetch("/student/return-book", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -2623,7 +2623,7 @@ document.addEventListener("DOMContentLoaded", () => {
     emptyLabel.hidden = true;
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/student/reading-history", {
+      const res = await fetch("/student/reading-history", {
         headers: {
           Authorization: authToken
         }
